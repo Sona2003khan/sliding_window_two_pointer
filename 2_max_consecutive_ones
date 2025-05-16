@@ -1,0 +1,28 @@
+public class sliding_window2 {
+    public static int max_consecutive_ones(int nums[] ,int k){
+        int n=nums.length;
+        int count=0;
+        int max=Integer.MIN_VALUE;
+        int left=0;
+
+        for(int right=0;right<n;right++){
+            if(nums[right]==0){
+                count++;
+            }
+            while(count > k){
+                if(nums[left]==0){
+                    count--;
+                }
+                left++;
+            }
+            max=Math.max(max ,right-left+1);
+        }
+        return max;
+    }
+    public static void main(String[] args) {
+        int nums[]={0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
+        int k=3;
+        int result=max_consecutive_ones(nums, k);
+        System.out.println(result);
+    }
+}
