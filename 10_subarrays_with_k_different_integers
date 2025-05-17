@@ -1,0 +1,35 @@
+import java.util.HashMap;
+
+import javax.print.attribute.HashAttributeSet;
+
+public class sliding_window_10 {
+
+    public static int subarrays_with_k_different_integers(int nums[], int k){
+        int n=nums.length;
+        int left=0;
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int count=0;
+
+        for(int right=0;right<n;right++){
+            map.put(nums[right],map.getOrDefault(nums[right], 0)+1);
+            
+            while(map.size() > k){
+                map.put(nums[left], map.get(nums[left])-1);
+                if(map.get(nums[left])==0){
+                    map.remove(nums[left]);
+                }
+                left++;
+            }
+            
+             count+=right-left+1;
+            
+        }
+        return count;
+    }
+    public static void main(String[] args) {
+        int nums[]={1,2,1,2,3};
+        int k=2;
+        int result=subarrays_with_k_different_integers(nums, k)-subarrays_with_k_different_integers(nums, k-1);
+        System.out.println(result);
+    }
+}
